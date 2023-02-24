@@ -35,8 +35,10 @@ jobs:
           virtualenv env
           source env/bin/activate
           pip install -r requirements.txt
-          pytest
-          
+      
+      - name: Functions testing
+        run: pytest
+
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -45,5 +47,5 @@ jobs:
           aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
           aws-region: us-east-1
 
-      - name: test aws cli
-        run: aws s3api list-buckets
+      - name: submit functions
+        run: aws s3 cp functions.py s3://part1despliegue
